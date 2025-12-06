@@ -1,0 +1,36 @@
+{
+  "name": "audio-transcriber",
+  "version": "1.0.0",
+  "description": "Transcribe audio files and send to Capacities API",
+  "main": "dist/main.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/main.js",
+    "dev": "rm -rf dist && tsc && node dist/main.js",
+    "bundle": "NODE_ENV=production node build.js",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
+  },
+  "dependencies": {
+    "@xenova/transformers": "^2.15.1",
+    "dotenv": "^16.4.7",
+    "fluent-ffmpeg": "^2.1.2",
+    "googleapis": "^148.0.0",
+    "up-fetch": "^1.3.6",
+    "wavefile": "^11.0.0",
+    "zod": "^3.25.64"
+  },
+  "devDependencies": {
+    "@types/fluent-ffmpeg": "^2.1.24",
+    "@types/node": "^20.11.19",
+    "@vitest/ui": "^3.2.3",
+    "esbuild": "^0.25.1",
+    "typescript": "^5.3.3",
+    "vitest": "^3.2.3"
+  },
+  "bin": {
+    "audio-transcribe": "audio-transcribe.js"
+  }
+}

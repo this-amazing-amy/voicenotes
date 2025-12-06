@@ -1,0 +1,17 @@
+node_modules
+npm-debug.log
+dist
+.env
+.env.*
+*.wav
+*.mp3
+*.m4a
+*.ogg
+*.mp4
+.git
+.gitignore
+.DS_Store
+config
+watch
+audio-transcribe.js
+service-account-key.json 

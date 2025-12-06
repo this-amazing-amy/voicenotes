@@ -1,0 +1,35 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+audio-transcribe.js
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Service account key
+service-account-key.json
+
+# Docker config and data directories
+config/
+watch/
+
+# Audio files
+*.wav
+*.mp3
+*.m4a
+*.ogg
+*.mp4
+
+# OS files
+.DS_Store
+
+# Logs
+*.log
+npm-debug.log* 
+
+# Docker
+docker-bake.hcl
