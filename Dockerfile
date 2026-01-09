@@ -10,7 +10,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install all dependencies including dev dependencies for building
-RUN npm ci
+RUN npm install
 
 # Copy source code
 COPY tsconfig.json build.js ecosystem.config.js ./
