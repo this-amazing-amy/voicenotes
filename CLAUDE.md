@@ -120,7 +120,7 @@ The application is containerized and designed to run as a service. Use `build-vo
 
 - Base image: `node:20-slim` with ffmpeg
 - Build steps: npm install → TypeScript compile → esbuild bundle → prune dev deps
-- Entrypoint: `pm2-runtime start ecosystem.config.js` (PM2 manages the process)
+- Entrypoint: `pm2-runtime start ecosystem.config.cjs` (PM2 manages the process)
 - Volumes: `/app/config` for `service-account-key.json`, `/app/vault` for Obsidian vault
 - All environment variables are passed at runtime (no build-time variables needed)
 
@@ -139,7 +139,7 @@ The application uses PM2 for automatic process management, providing resilience 
 
 **Configuration:**
 
-- PM2 configuration is in `ecosystem.config.js`
+- PM2 configuration is in `ecosystem.config.cjs`
 - Uses `pm2-runtime` in Docker (foreground mode, proper signal handling)
 - Logs are sent to stdout/stderr for Docker log collection
 

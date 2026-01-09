@@ -13,7 +13,7 @@ COPY package*.json ./
 RUN npm install
 
 # Copy source code
-COPY tsconfig.json build.js ecosystem.config.js ./
+COPY tsconfig.json build.js ecosystem.config.cjs ./
 COPY src/ ./src/
 
 # Set Docker environment flag
@@ -32,4 +32,4 @@ RUN mkdir -p /app/config
 VOLUME /app/config
 
 # Start the application with PM2
-CMD ["pm2-runtime", "start", "ecosystem.config.js"] 
+CMD ["npx", "pm2-runtime", "start", "ecosystem.config.cjs"] 
