@@ -68,7 +68,7 @@ Entry point that initializes Whisper model and starts Google Drive polling. Incl
 - `saveToDailyNoteInCapacities()`: Appends transcription to Capacities daily note via API
 - Endpoint: `https://api.capacities.io/save-to-daily-note`
 - Uses `localDate` parameter to target the specific day's daily note based on audio file timestamp
-- Format: `HH:MM 🗣️ transcription text`
+- Format: `transcription text` (plain text, no timestamp or emoji prefix)
 
 ### Filename Parsing (src/parseFilename.ts)
 

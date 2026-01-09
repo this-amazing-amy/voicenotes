@@ -32,12 +32,7 @@ export const saveToDailyNoteInCapacities = async (
     throw new Error("CAPACITIES_SPACE_ID is not configured");
   }
 
-  const formattedTime = timestamp.toLocaleTimeString("de-DE", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-
-  const mdText = `${formattedTime} 🗣️ ${transcription}`;
+  const mdText = transcription;
   const localDate = formatDate(timestamp);
 
   const payload: SaveToDailyNoteRequest = {
