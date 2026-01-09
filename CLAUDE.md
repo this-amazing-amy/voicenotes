@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Audio transcription service that polls Google Drive for audio files, transcribes them using Whisper AI, and sends transcriptions to your preferred target: Obsidian daily notes, Fabric notepads, or Tana inbox. Designed to run as a long-running service, either locally or in Docker.
+Audio transcription service that polls Google Drive for audio files, transcribes them using Whisper AI, and sends transcriptions to your preferred target: Obsidian daily notes, Fabric notepads, Tana inbox, or Capacities daily notes. Designed to run as a long-running service, either locally or in Docker.
 
 ## Development Commands
 
@@ -63,6 +63,13 @@ Entry point that initializes Whisper model and starts Google Drive polling. Incl
 - Node name: transcription text (Tana automatically tracks creation timestamp)
 - API rate limit: 1 call per second per token
 
+### Capacities Integration (src/capacities.ts)
+
+- `saveToDailyNoteInCapacities()`: Appends transcription to Capacities daily note via API
+- Endpoint: `https://api.capacities.io/save-to-daily-note`
+- Uses `localDate` parameter to target the specific day's daily note based on audio file timestamp
+- Format: `HH:MM 🗣️ transcription text`
+
 ### Filename Parsing (src/parseFilename.ts)
 
 Extracts timestamps from audio filenames to determine which daily note to append to. Multiple formats supported.
@@ -73,7 +80,7 @@ Uses Zod for environment validation. Config loaded from `config/.env` (Docker) o
 
 Required environment variables:
 
-- `TRANSCRIPTION_TARGET`: Target system for transcriptions (`obsidian`, `fabric`, or `tana`)
+- `TRANSCRIPTION_TARGET`: Target system for transcriptions (`obsidian`, `fabric`, `tana`, or `capacities`)
 - `POLLING_INTERVAL_MS`: How often to check Drive (default: 30000)
 - `GOOGLE_SERVICE_ACCOUNT_FILE`: Path to service account JSON key
 - `GOOGLE_DRIVE_FOLDER_ID`: Folder to monitor for new audio files
@@ -93,6 +100,13 @@ Required environment variables:
   - Get token: In Tana, go to Settings > API Tokens > Create token for your workspace
 - `TANA_SUPERTAG_ID`: (Optional) NodeID of supertag to apply to transcriptions
   - Get supertag ID: In Tana, open supertag config panel, run command "Show API schema" on the supertag title
+
+**Capacities-specific variables** (required when `TRANSCRIPTION_TARGET=capacities`):
+
+- `CAPACITIES_API_TOKEN`: API access token for Capacities
+  - Get token: In Capacities desktop app, go to Settings > Capacities API to generate an access token
+- `CAPACITIES_SPACE_ID`: Unique identifier for your Capacities space
+  - Get space ID: In Capacities desktop app, go to Settings > Space settings to find your Space ID
 
 ## Docker Deployment
 

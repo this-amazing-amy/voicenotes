@@ -2,6 +2,7 @@ import { promises as fs } from "fs";
 import { convertToWav, processAudioData } from "./audio.js";
 import { env } from "./config.js";
 import { startWatchingDrive } from "./drive.js";
+import { saveToDailyNoteInCapacities } from "./capacities.js";
 import { createNotepadInFabric } from "./fabric.js";
 import { appendToObsidianDailyNote } from "./obsidian.js";
 import { createNodeInTana } from "./tana.js";
@@ -30,6 +31,8 @@ const processAudioFile = async (
       await createNotepadInFabric(transcription, timestamp ?? new Date());
     } else if (target === "tana") {
       await createNodeInTana(transcription, timestamp ?? new Date());
+    } else if (target === "capacities") {
+      await saveToDailyNoteInCapacities(transcription, timestamp ?? new Date());
     } else {
       await appendToObsidianDailyNote(transcription, timestamp);
     }

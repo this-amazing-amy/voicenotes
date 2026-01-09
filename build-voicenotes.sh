@@ -12,7 +12,7 @@ CONFIG_VOLUME="/mnt/user/appdata/voicenotes/config"
 
 # Runtime environment variables
 TZ="Europe/Berlin"
-TRANSCRIPTION_TARGET="obsidian"           # obsidian, fabric, or tana
+TRANSCRIPTION_TARGET="capacities"           # obsidian, fabric, tana, or capacities
 POLLING_INTERVAL_MS="30000"               # 30 seconds
 
 # Google Drive settings
@@ -23,6 +23,10 @@ GOOGLE_DRIVE_PROCESSED_FOLDER_ID="your_processed_folder_id"
 # Obsidian settings (only when TRANSCRIPTION_TARGET=obsidian)
 OBSIDIAN_VAULT_VOLUME="/mnt/user/appdata/voicenotes/vault"
 OBSIDIAN_VAULT_ROOT="/app/vault"
+
+# Capacities settings (only when TRANSCRIPTION_TARGET=capacities)
+CAPACITIES_API_TOKEN=""
+CAPACITIES_SPACE_ID=""
 
 # Fabric settings (only when TRANSCRIPTION_TARGET=fabric)
 FABRIC_API_KEY=""
