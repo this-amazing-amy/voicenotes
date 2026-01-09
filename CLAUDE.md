@@ -132,7 +132,6 @@ The application uses PM2 for automatic process management, providing resilience 
 
 - **Auto-restart on crash**: Automatically restarts the process if it exits unexpectedly
 - **Hang detection**: Force kills the process after 30 seconds if it becomes unresponsive
-- **Memory monitoring**: Restarts if memory usage exceeds 512MB (prevents memory leaks)
 - **Restart throttling**: Maximum 10 restarts per minute to prevent restart storms
 - **Graceful shutdown**: Waits up to 30 seconds for clean shutdown before force killing
 - **Ready signal**: Process sends "ready" signal after Whisper model initialization
