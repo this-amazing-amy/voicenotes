@@ -25,7 +25,7 @@ Audio transcription service that polls Google Drive for audio files, transcribes
 
 ### Main Flow (src/main.ts)
 
-Entry point that initializes Whisper model and starts Google Drive polling. Includes retry logic (3 retries with 5s delay) for crash recovery.
+Entry point that initializes Whisper model and starts Google Drive polling. Includes retry logic (3 retries with 5s delay) for crash recovery. Sends PM2 "ready" signal after Whisper initialization to indicate the process is ready to handle requests.
 
 ### Google Drive Integration (src/drive.ts)
 
@@ -106,9 +106,39 @@ The application is containerized and designed to run as a service. Use `build-vo
 
 - Base image: `node:20-slim` with ffmpeg
 - Build steps: npm install → TypeScript compile → esbuild bundle → prune dev deps
-- Entrypoint: `node out/main.js`
+- Entrypoint: `pm2-runtime start ecosystem.config.js` (PM2 manages the process)
 - Volumes: `/app/config` for `service-account-key.json`, `/app/vault` for Obsidian vault
 - All environment variables are passed at runtime (no build-time variables needed)
+
+## PM2 Process Supervisor
+
+The application uses PM2 for automatic process management, providing resilience against crashes and hangs:
+
+**Features:**
+
+- **Auto-restart on crash**: Automatically restarts the process if it exits unexpectedly
+- **Hang detection**: Force kills the process after 30 seconds if it becomes unresponsive
+- **Memory monitoring**: Restarts if memory usage exceeds 512MB (prevents memory leaks)
+- **Restart throttling**: Maximum 10 restarts per minute to prevent restart storms
+- **Graceful shutdown**: Waits up to 30 seconds for clean shutdown before force killing
+- **Ready signal**: Process sends "ready" signal after Whisper model initialization
+
+**Configuration:**
+
+- PM2 configuration is in `ecosystem.config.js`
+- Uses `pm2-runtime` in Docker (foreground mode, proper signal handling)
+- Logs are sent to stdout/stderr for Docker log collection
+
+**Monitoring:**
+
+- View logs: `docker exec -it voicenotes pm2 logs`
+- Check status: `docker exec -it voicenotes pm2 status`
+- View detailed info: `docker exec -it voicenotes pm2 describe audio-transcriber`
+
+**Local development:**
+
+- Use `npm run dev` for development (runs without PM2)
+- Use `npm start` or `npm run start:pm2` to test with PM2 locally
 
 ## Important Notes
 

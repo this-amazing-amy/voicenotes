@@ -12,7 +12,7 @@ let whisperPipeline: any;
 
 const processAudioFile = async (
   filePath: string,
-  timestamp: Date | null,
+  timestamp: Date | null
 ): Promise<void> => {
   try {
     console.log(`🎵 Processing file: ${filePath}`);
@@ -50,6 +50,11 @@ const main = async (): Promise<void> => {
 
   console.log("Initializing whisper model...");
   whisperPipeline = await initializeWhisper();
+
+  if (process.send) {
+    process.send("ready");
+  }
+
   console.log("Starting Google Drive polling...");
   await startWatchingDrive(processAudioFile);
 };
@@ -64,8 +69,9 @@ const runMainWithRetry = async (retriesLeft: number): Promise<void> => {
     console.error("Main process crashed:", error);
     if (retriesLeft > 0) {
       console.log(
-        `Retrying in ${RETRY_DELAY_MS / 1000
-        } seconds... (${retriesLeft} retries left)`,
+        `Retrying in ${
+          RETRY_DELAY_MS / 1000
+        } seconds... (${retriesLeft} retries left)`
       );
       await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
       await runMainWithRetry(retriesLeft - 1);
