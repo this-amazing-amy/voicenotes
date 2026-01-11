@@ -131,6 +131,7 @@ The application uses PM2 for automatic process management, providing resilience 
 **Features:**
 
 - **Auto-restart on crash**: Automatically restarts the process if it exits unexpectedly
+- **Scheduled restart**: Restarts every hour at minute 0 to prevent hangs and ensure fresh state
 - **Hang detection**: Force kills the process after 30 seconds if it becomes unresponsive
 - **Restart throttling**: Maximum 10 restarts per minute to prevent restart storms
 - **Graceful shutdown**: Waits up to 30 seconds for clean shutdown before force killing

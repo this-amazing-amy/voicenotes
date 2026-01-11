@@ -5,6 +5,7 @@ module.exports = {
       script: "./out/main.js",
       instances: 1,
       autorestart: true,
+      cron_restart: "0 * * * *",
       max_restarts: 10,
       min_uptime: "10s",
       kill_timeout: 30000,

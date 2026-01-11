@@ -19,6 +19,9 @@ COPY src/ ./src/
 # Set Docker environment flag
 ENV DOCKER_ENVIRONMENT=true
 
+# Suppress ONNX Runtime warnings
+ENV ORT_LOGGING_LEVEL=3
+
 # Build the application
 RUN npm run build && npm run bundle
 
